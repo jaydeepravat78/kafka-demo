@@ -2,6 +2,7 @@ package com.example.kafkademo.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,8 @@ public class KafkaController {
 
 
     @PostMapping
-    public void publish(@RequestBody MessageRequest message) {
+    public ResponseEntity<MessageRequest> publish(@RequestBody MessageRequest message) {
         kafkaTemplate.send("kafka",message.getMessage());
+        return ResponseEntity.ok(message);
     }
 }
